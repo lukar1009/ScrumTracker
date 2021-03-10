@@ -1,6 +1,8 @@
 import { UserDto } from '../dto/user.dto';
 import shortid from 'shortid';
 import debug from 'debug';
+import { connect } from '../../config/database';
+
 const log: debug.IDebugger = debug('app:in-memory-dao');
 
 class UserDao {
@@ -17,7 +19,9 @@ class UserDao {
     }
 
     async getUsers() {
-        return this.users;
+        const conn = await connect();
+        const usersResult = await conn.query('select * from user');
+        return usersResult[0];
     }
     
     async getUserById(userId: string) {
@@ -58,6 +62,10 @@ class UserDao {
         } else {
             return null;
         }
+    }
+
+    private mapUsers(usersData: any) {
+        
     }
 }
 
