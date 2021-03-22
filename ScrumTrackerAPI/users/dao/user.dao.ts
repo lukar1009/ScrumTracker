@@ -2,70 +2,131 @@ import { UserDto } from '../dto/user.dto';
 import shortid from 'shortid';
 import debug from 'debug';
 import { connect } from '../../config/database';
+import { RoleDto } from '../dto/role.dto';
+import { RowDataPacket } from 'mysql2';
 
 const log: debug.IDebugger = debug('app:in-memory-dao');
 
 class UserDao {
     users: Array<UserDto> = [];
+    roles: Array<RoleDto> = [];
     
-    constructor() {
-        log('Created new instance of UserDao');
-    }
+    constructor() { }
 
     async addUser(user: UserDto) {
-        user.id = shortid.generate();
-        this.users.push(user);
-        return user.id;
+        const conn = await connect();
+        await conn.execute('insert into user set Name = ?, Email = ?, Password = ?', [user.name, user.email, user.password]);
+        return user;
+    }
+
+    async addRole(role: RoleDto) {
+        const conn = await connect();
+        await conn.execute('insert into role set Name = ?', [role.name]);
+        return role;
     }
 
     async getUsers() {
         const conn = await connect();
         const usersResult = await conn.query('select * from user');
-        return usersResult[0];
+        let res = this.mapUsers(usersResult[0]);
+        return res;
     }
     
-    async getUserById(userId: string) {
-        return this.users.find((user: { id: string; }) => user.id === userId);
+    async getUserById(userId: number) {
+        const conn = await connect();
+        const result = await conn.query(
+            "select * from user where Id = (?)",
+            userId
+        );
+        return this.mapUser(result[0]);
     }
 
     async putUserById(user: UserDto) {
-        const objIndex = this.users.findIndex((obj: { id: string; }) => obj.id === user.id);
-        this.users.splice(objIndex, 1, user);
-        return `${user.id} updated via put`;
-    }
-    
-    async patchUserById(user: UserDto) {
-        const objIndex = this.users.findIndex((obj: { id: string; }) => obj.id === user.id);
-        let currentUser = this.users[objIndex];
-        const allowedPatchFields = ["password", "firstName", "lastName", "permissionLevel"];
-        for (let field of allowedPatchFields) {
-            if (field in user) {
-                // @ts-ignore
-                currentUser[field] = user[field];
-            }
-        }
-        this.users.splice(objIndex, 1, currentUser);
-        return `${user.id} patched`;
+        const conn = await connect();
+        await conn.execute('update user set Name = ?, Email = ?, Password = ? where ID = ?', [user.name, user.email, user.password, user.id]);
+        return `${user.id} updated.`;
     }
 
-    async removeUserById(userId: string) {
-        const objIndex = this.users.findIndex((obj: { id: string; }) => obj.id === userId);
-        this.users.splice(objIndex, 1);
-        return `${userId} removed`;
+    async removeUserById(userId: number) {
+        const conn = await connect();
+        await conn.execute('delete from user where ID = ?', [userId]);
+        return `${userId} deleted.`;
     }
 
     async getUserByEmail(email: string) {
-        const objIndex = this.users.findIndex((obj: { email: string; }) => obj.email === email);
-        let currentUser = this.users[objIndex];
-        if (currentUser) {
-            return currentUser;
+        const conn = await connect();
+        const res = await conn.query(`select * from user where Email = '${email}'`);
+        let user = this.mapUser(res[0]);
+        return user;
+    }
+
+    async getRoles(limit: number, page: number) {
+        const conn = await connect();
+        const rolesResult = await conn.query('select * from role');
+        let res = this.mapRoles(rolesResult[0]);
+        return res;
+    }
+
+    async getRoleByName(name: string) {
+        return null;
+    }
+
+    async updateRoleById(role: RoleDto) {
+        const conn = await connect();
+        await conn.execute('update role set Name = ? where ID = ?', [role.name, role.id]);
+        return `${role.id} updated.`;
+    }
+
+    async deleteRoleById(roleId: string) {
+        const conn = await connect();
+        await conn.execute('delete from role where ID = ?', [roleId]);
+        return `${roleId} deleted.`;
+    }
+
+    private mapUsers(usersData: any) {
+        let usersArray: UserDto[] = [];
+        for(let i = 0; i < usersData.length; i++) {
+            usersArray.push(this.populateUser(usersData[i]));
+        }
+        return usersArray;
+    }
+
+    private mapUser(userData: any) {
+        log(userData);
+        if(userData[0] != undefined) {
+            let user = new UserDto();
+            user.id = +userData[0]["ID"];
+            user.name = userData[0]["Name"];
+            user.email = userData[0]["Email"];
+            user.password = userData[0]["Password"];
+            return user;        
         } else {
             return null;
         }
     }
 
-    private mapUsers(usersData: any) {
-        
+    private populateUser(userData: any) {
+        let user = new UserDto();
+        user.id = +userData["ID"];
+        user.name = userData["Name"];
+        user.email = userData["Email"];
+        user.password = userData["Password"];
+        return user;
+    }
+
+    private mapRoles(rolesData: any) {
+        let rolesArray: RoleDto[] = [];
+        for(let i = 0; i < rolesData.length; i++) {
+            rolesArray.push(this.populateRole(rolesData[i]));
+        }
+        return rolesArray;
+    }
+
+    private populateRole(roleData: any) {
+        let role = new RoleDto();
+        role.id = +roleData["ID"];
+        role.name = roleData["Name"];
+        return role;
     }
 }
 

@@ -24,14 +24,20 @@ export class UsersRoutes extends CommonRoutesConfig {
 
         this.app.put(`/users/:userId`,[
             UsersMiddleware.validateRequiredUserBodyFields,
-            UsersMiddleware.validateSameEmailBelongToSameUser,
             UsersController.put
         ]);
 
-        this.app.patch(`/users/:userId`, [
-            UsersMiddleware.validatePatchEmail,
-            UsersController.patch
-        ]);
+        this.app.route('/roles')
+            .get(UsersController.listRoles)
+            .post(UsersMiddleware.validateRequeiredRoleBodyFields,
+                  UsersMiddleware.validateRoleExists,
+                  UsersController.createRole);
+
+        this.app.param(`roleId`, UsersMiddleware.extractRoleId);
+        this.app.route(`/roles/:roleId`)
+            .all(UsersMiddleware.validateRoleExists)
+            .put(UsersController.updateRole)
+            .delete(UsersController.deleteRole)
 
         return this.app;
     }

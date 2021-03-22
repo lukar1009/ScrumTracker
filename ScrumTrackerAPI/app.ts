@@ -8,6 +8,11 @@ import cors from 'cors';
 import { CommonRoutesConfig } from './common/common.routes.config';
 import { UsersRoutes } from './users/users.routes.config';
 import debug from 'debug';
+import { TasksRoutes } from './tasks/tasks.routes.config';
+import { ProjectsRoutes } from './projects/projects.routes.config';
+import { NotificationsRoutes } from './notifications/notifications.routes.config';
+import { MessagesRoutes } from './messages/messages.routes.config';
+import { setSocketInstance } from './socket';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -29,6 +34,10 @@ app.use(expressWinston.logger({
 
 //dodavanje novih ruta
 routes.push(new UsersRoutes(app));
+routes.push(new TasksRoutes(app));
+routes.push(new ProjectsRoutes(app));
+routes.push(new NotificationsRoutes(app));
+routes.push(new MessagesRoutes(app));
 
 app.use(expressWinston.errorLogger({
     transports: [
@@ -39,6 +48,8 @@ app.use(expressWinston.errorLogger({
         winston.format.json()
     )
 }));
+
+setSocketInstance(server);
 
 //Testna ruta, za testiranje rada servisa
 app.get('/', (req: express.Request, res: express.Response) => {
