@@ -1,4 +1,4 @@
-// These are words/phrases the user could type in
+// Dozvoljeni unosi od strane korisnika
 
 export const trigger = [
     ["hi", "hey", "hello", "good morning", "good afternoon"],
@@ -26,7 +26,7 @@ export const trigger = [
     ["what", "why", "how", "where", "when"]
 ];
   
-// These are bot responses, paired in order with the above 'trigger' phrases
+// Upareni odgovori u odnosu na trigere
   
 export const reply = [
     ["Hello!", "Hi!", "Hey!", "Hi there!"],
@@ -44,7 +44,7 @@ export const reply = [
     ["I am infinite"],
     ["I am just a bot", "I am a bot. What are you?"],
     ["The one true God, JavaScript"],
-    ["I am nameless", "I don't have a name"],
+    ["I am ScrumTracker ChatBot"],
     ["I love you too", "Me too"],
     ["Have you ever felt bad?", "Glad to hear it"],
     ["Why?", "Why? You shouldn't!", "Try watching TV"],
@@ -57,17 +57,9 @@ export const reply = [
     ["Yes?"]
 ];
   
-// This is a small set of basically random 'catch alls' for anything that the user enters outside of the possible trigger phrases
+// Nasumicne alternative ako korisnik unese nesto sto nije iz dozvoljenih unosa
 
 export const alternative = [
-    "Same",
-    "Go on...",
-    "Bro...",
     "Try again",
     "I'm listening..."
 ];
-
-
-// Same purpose as the 'alternative' but an attempt at being culturally relevant ;)
-
-export const coronavirus = ["Please stay home"];

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
 import { User } from "src/app/core/models/user";
 import { SocketService } from "../../services/socket.service";
 import { UserService } from "../../services/user.service";
@@ -20,24 +21,25 @@ export class ChatBotComponent implements OnInit, OnDestroy {
 
     public users: User[] = [];
     
+    private recievedReplySubscription: Subscription = new Subscription();
+
     constructor(private _socketService: SocketService,
                 private _userService: UserService) { }
     
     ngOnInit(): void {
-        console.log("chatbot init");
         this.getAllUsers();
-        this._socketService.receivedReply().subscribe(data => {
-            this.messageArray.push({ name:'bot', message: data.outputMessage });
+        this.recievedReplySubscription = this._socketService.receivedReply().subscribe(data => {
+            this.messageArray.push({ name:'ScrumTracker ChatBot', message: data.outputMessage });
         });
     }
     ngOnDestroy(): void {
-        console.log("chatbot destroy");
+        this.recievedReplySubscription.unsubscribe();
     }
 
     sendMessage(){
         const data = { message: this.message };
         this._socketService.sendMessage(data);
-        this.messageArray.push({ name: 'you', message: this.message });
+        this.messageArray.push({ name: 'You', message: this.message });
         this.message = '';
     }
 

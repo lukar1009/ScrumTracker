@@ -1,10 +1,10 @@
 import SocketIO from 'socket.io';
-import { trigger, reply, alternative, coronavirus } from './chatbot-data';
+import { trigger, reply, alternative } from './chatbot-data';
 
 function proccessMessage(input: any) {
     let output;
   
-    //Transforms whatever the user inputs to lowercase and remove all chars except word characters, space, and digits
+    //Regularni izraz koji cisti sve nepotrebne karaktere iz unosa
     let text = input.toLowerCase().replace(/[^\w\s\d]/gi, "");
   
     // For example 'tell me a story' becomes 'tell me story'
@@ -16,12 +16,10 @@ function proccessMessage(input: any) {
       .replace(/please /g, "")
       .replace(/ please/g, "");
   
-    // Searches for an exact match with the 'trigger' array, if there are none, it goes will check if message contains 'coronavirus,' and if not - random alternative
+    //Provera da li postoji triger koji se slaze sa dozvoljenim i sa odgovorom, ako postoji daje mu odgovor, a ako ne, onda daje neku od alternativa
     const match = compare(trigger, reply, text)
     if (match) {
       output = match;
-    } else if (text.match(/coronavirus/gi)) {
-      output = coronavirus[Math.floor(Math.random() * coronavirus.length)];
     } else {
       output = alternative[Math.floor(Math.random() * alternative.length)];
     }
