@@ -13,6 +13,7 @@ import { ProjectsRoutes } from './projects/projects.routes.config';
 import { NotificationsRoutes } from './notifications/notifications.routes.config';
 import { MessagesRoutes } from './messages/messages.routes.config';
 import { setSocketInstance } from './socket';
+import { PushNotificationsRoutes } from './push-notifications/push-notifications.routes.config';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -38,6 +39,7 @@ routes.push(new TasksRoutes(app));
 routes.push(new ProjectsRoutes(app));
 routes.push(new NotificationsRoutes(app));
 routes.push(new MessagesRoutes(app));
+routes.push(new PushNotificationsRoutes(app));
 
 app.use(expressWinston.errorLogger({
     transports: [

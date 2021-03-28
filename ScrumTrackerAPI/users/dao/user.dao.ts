@@ -1,9 +1,7 @@
 import { UserDto } from '../dto/user.dto';
-import shortid from 'shortid';
 import debug from 'debug';
 import { connect } from '../../config/database';
 import { RoleDto } from '../dto/role.dto';
-import { RowDataPacket } from 'mysql2';
 
 const log: debug.IDebugger = debug('app:in-memory-dao');
 
