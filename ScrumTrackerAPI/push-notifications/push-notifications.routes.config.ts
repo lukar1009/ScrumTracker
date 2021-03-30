@@ -47,8 +47,8 @@ export class PushNotificationsRoutes extends CommonRoutesConfig {
                 subscriptions = result;
                 let payload = JSON.stringify({
                     "notification": {
-                      "title": "Push Notification",
-                      "body": `Notification sent!!!`,
+                      "title": "Task Tracker PWA",
+                      "body": `New task has been added!`,
                       "icon": "https://yt3.ggpht.com/a-/AAuE7mCxr-4W53FAxBRcKR0iDk_vPCSAmW-QKFGaFA=s88-mo-c-c0xffffffff-rj-k-no"
                     }
                   });
