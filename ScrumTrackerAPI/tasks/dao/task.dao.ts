@@ -9,9 +9,16 @@ class TaskDao {
     async addTask(task: TaskDto) {
         const conn = await connect();
         await conn.execute('insert into task set Title = ?, Description = ?, EstimatedTime = ?, TimeSpent = 0, TaskStatusId = ?', [task.title, task.description, task.estimatedTime, task.taskStatus != undefined ? task.taskStatus.id : 1]);
-        return task;
+        const resID = conn.query("select ID as TaskID from Task order by ID desc limit 1").then(data => {
+            let res = this.mapTasks(data[0]);
+            let id = res[0].id != undefined ? res[0].id : 0;
+            conn.execute('insert into user_x_role_x_task set UserId = ?, RoleId = 4, TaskId = ?', [task.assignedDeveloperId, id]);
+            conn.execute('insert into user_x_role_x_task set UserId = ?, RoleId = 1, TaskId = ?', [task.scrumMasterId, id]);
+            return task;
+        });
     }
 
+    //TODO: Osposobiti vracanja assignedUser i scrumMaster atributa
     async listTasks(limit: number, pageNum: number) {
         const conn = await connect();
         const result = await conn.query('select t.ID as TaskID, t.Title, t.Description, t.EstimatedTime, t.TimeSpent, ts.ID as TaskStatusID, ts.Name as TaskStatusName ' + 

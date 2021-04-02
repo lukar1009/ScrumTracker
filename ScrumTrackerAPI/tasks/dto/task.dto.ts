@@ -7,4 +7,6 @@ export class TaskDto {
     estimatedTime: number | undefined;
     timeSpent: number | undefined;
     taskStatus: TaskStatusDto | undefined;
+    assignedDeveloperId: number | undefined;
+    scrumMasterId: number | undefined;
 }

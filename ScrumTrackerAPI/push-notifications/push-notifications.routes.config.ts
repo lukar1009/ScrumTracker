@@ -13,20 +13,22 @@ export class PushNotificationsRoutes extends CommonRoutesConfig {
     
     configureRoutes(): express.Application {
         
+        /**
+         *  struktura requesta
+         *   {
+         *      user: { id: 1, name: 'luka' },
+         *      sub: {
+         *        endpoint: 'https://fcm.googleapis.com/fcm/send/faJIdHiIWn8:APA91bHCkDohboVEgEU9lDF1HB78b9XdzINIepl8AY7I5h3bfc6IWOzRPPS8yhQrpJ_f50DMy-aLFHuVoQntLvfODMo7rYNCm-p_DRKy1Yds97J-0yxUhv3jSiAkX4ZM1Fe_hI0tGyjq',
+         *        expirationTime: null,
+         *        keys: {
+         *          p256dh: 'BLxNfo3IIKknMRnDjvvTuZyHNIiFdZG6nNIb_u4OCwyG4fexJJP90JRttb_ZqAuXHeGxXSOZEsuZOAs_Cgjp8NE',
+         *          auth: 'VAw3FWNeBqK9p_jp9Mpv-g'
+         *        }
+         *      }
+         *  }
+         */
+
         this.app.post('/subscribe', (req, res) => {
-            //struktura requesta
-            // {
-            //     user: { id: 1, name: 'luka' },
-            //     sub: {
-            //       endpoint: 'https://fcm.googleapis.com/fcm/send/faJIdHiIWn8:APA91bHCkDohboVEgEU9lDF1HB78b9XdzINIepl8AY7I5h3bfc6IWOzRPPS8yhQrpJ_f50DMy-aLFHuVoQntLvfODMo7rYNCm-p_DRKy1Yds97J-0yxUhv3jSiAkX4ZM1Fe_hI0tGyjq',
-            //       expirationTime: null,
-            //       keys: {
-            //         p256dh: 'BLxNfo3IIKknMRnDjvvTuZyHNIiFdZG6nNIb_u4OCwyG4fexJJP90JRttb_ZqAuXHeGxXSOZEsuZOAs_Cgjp8NE',
-            //         auth: 'VAw3FWNeBqK9p_jp9Mpv-g'
-            //       }
-            //     }
-            //   }
-            console.log(req.body);
             pushNotificationsController.addSubscription(req.body).then(result => {
                 res.status(200).send(result);
             });
@@ -34,7 +36,7 @@ export class PushNotificationsRoutes extends CommonRoutesConfig {
 
         this.app.post('/message', (req, res) => {
             res.set('Content-Type', 'application/json');
-
+            console.log(req.body);
             //generisati novi public i private key -> web-push generate-vapid-keys --json
             webpush.setVapidDetails(
                 'mailto:example@yourdomain.org',
@@ -54,9 +56,12 @@ export class PushNotificationsRoutes extends CommonRoutesConfig {
                   });
                 
                 for(let i = 0; i < subscriptions.length; i++) {
-                    // let sub: PushSubscription = new PushSubscription();
-                    //u odnosu na userId iz req treba razluciti da li se salje notifikacija (porediti ga sa subscriptions[i].userId)
-                    //u req bi trebalo napakovati sa angulara niz userId-jeva kojima se salje notifikacija
+                    //Deo za slanje notifikacija pojedinacnim korisnicima
+                    // if(subscriptions[i].userId == req.body.userId 
+                    //     || subscriptions[i].userId == req.body.developerId 
+                    //     || subscriptions[i].userId == req.body.scrumMasterId) {
+
+                    // }
                     let sub = {
                         endpoint: subscriptions[i].sub?.endpoint,
                         expirationTime: null,
