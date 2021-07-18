@@ -4,21 +4,44 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SocketService } from './shared/services/socket.service';
-import { ChatBotComponent } from './shared/components/chatbot/chatbot.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserService } from './shared/services/user.service';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AdminPanelModule } from './pages/admin-panel/admin-panel.module';
+import { DashboardModule } from './pages/dashboard/dashboard.module';
+import { InboxModule } from './pages/inbox/inbox.module';
+import { LoginModule } from './pages/login/login.module';
+import { ProjectsModule } from './pages/projects/projects.module';
+import { TasksModule } from './pages/tasks/tasks.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ChatBotComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
+    AppRoutingModule,
+    CoreModule,
+    SharedModule,
+    AdminPanelModule,
+    DashboardModule,
+    InboxModule,
+    LoginModule,
+    ProjectsModule,
+    TasksModule
   ],
   providers: [
     SocketService,
@@ -27,3 +50,7 @@ import { FormsModule } from '@angular/forms';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}

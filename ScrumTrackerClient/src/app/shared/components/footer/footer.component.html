@@ -1,0 +1,50 @@
+<div class="footer">
+    <div class="row justify-content-end">
+        <div class="col-4 text-end"
+            (mouseenter)="toggleTooltip()"
+            (mouseleave)="toggleTooltip()">
+            <span class="chatbot-title">{{'LK_CHATBOT_NAME' | translate}}</span>
+            <img id="chatbot" (click)="openOrCloseChatBot()" src="../../../../assets/images/chatbotpng.png" alt="Chatbot!" width="40" height="40">
+        </div>
+        <dx-tooltip target="#chatbot"
+                    [(visible)]="chatbotTooltipVisible"
+                    [closeOnOutsideClick]="false">
+            <div *dxTemplate="let data = data of 'content'">
+                {{'LK_CHATBOT_TOOLTIP' | translate}}    
+            </div>
+        </dx-tooltip>
+        <dx-popover target="#chatbot"
+                    position="top"
+                    [width]="300"
+                    [height]="450"
+                    [(visible)]="chatbotModalOpened"
+                    [closeOnOutsideClick]="false">
+                <div *dxTemplate="let data = model of 'content'">
+                    <div class="chatbot-header row justify-content-between">
+                        <div class="col-8 chatbot-header-title">
+                            {{'LK_CHATBOT_HEADER_TITLE' | translate}}
+                        </div>
+                        <div class="col-2 close-button text-end">
+                            <dx-button icon="close" (onClick)="openOrCloseChatBot()"></dx-button>
+                        </div>
+                    </div>
+                    <div class="chatbot-body mt-2 pb-3">
+                        <dx-scroll-view [scrollByContent]="true"
+                                        [scrollByThumb]="true"
+                                        [showScrollbar]="'always'">
+                            <div class="row" *ngFor="let item of messageArray">
+                                <div class="col-7 {{item.botMessage ? 'offset-5 text-end bot-message' : 'client-message'}}">
+                                    <span>{{item.name}}: </span> {{item.message}}
+                                </div>
+                            </div>
+                        </dx-scroll-view>
+                    </div>
+                    <div class="chatbot-footer">
+                        <dx-text-box [(value)]="message" placeholder="Say something..." [showClearButton]="true"
+                                    (onEnterKey)="sendMessage()">
+                        </dx-text-box>
+                    </div>                    
+                </div>
+        </dx-popover>
+    </div>
+</div>

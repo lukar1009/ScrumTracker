@@ -1,0 +1,57 @@
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background: #ebebeb;
+}
+
+.chatbot-title {
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
+.chatbot-header {
+    border-bottom: 1px solid #ebebeb;
+    width: 100%;
+    padding: 0px !important;
+    top: -15px;
+}
+
+.close-button {
+    padding: 0px;
+}
+
+.chatbot-header-title {
+    padding-top: 7px;
+}
+
+.chatbot-body {
+    height: 85%;
+}
+
+.chatbot-footer {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 5px !important;
+    width: 85.5%;
+    background: #ebebeb;
+}
+
+.bot-message {
+    background-color: rgb(66, 127, 240);
+    color: white;
+    border-radius: 5px;
+    margin-top: 4px;
+}
+
+.client-message {
+    background-color: rgb(255, 152, 133);
+    color: white;
+    border-radius: 5px;
+    margin-top: 4px;
+}
