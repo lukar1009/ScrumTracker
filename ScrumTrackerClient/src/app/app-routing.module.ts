@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tasks/tasks.module').then(m => m.TasksModule)
   },
   {
+    path: 'notifications',
+    loadChildren: () => import('./pages/notifications/notifications.module').then(m => m.NotificationsModule)
+  },
+  {
     path: '**',
     redirectTo: 'home',
     pathMatch: 'full'

@@ -65,7 +65,11 @@
             "allowedCommonJsDependencies": [
               "devextreme",
               "devextreme-angular",
-              "rxjs"
+              "rxjs",
+              "socket.io",
+              "socket.io-client",
+              "socket.io-adapter",
+              "socket.io-parser"
             ]
           },
           "configurations": {

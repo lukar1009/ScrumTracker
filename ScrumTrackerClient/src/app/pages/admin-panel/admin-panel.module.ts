@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
     AdminPanelRoutingModule,
     TranslateModule
   ],
-  exports: [AdminPanelModule],
+  exports: [AdminPanelComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminPanelModule { }
