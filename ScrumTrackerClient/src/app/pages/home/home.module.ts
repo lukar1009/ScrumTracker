@@ -1,17 +1,17 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TasksComponent } from './tasks/tasks.component';
-import { TasksRoutingModule } from './tasks-routing.module';
+import { HomeComponent } from './home.component';
+import { HomeRoutingModule } from './home-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [TasksComponent],
+  declarations: [HomeComponent],
   imports: [
     CommonModule,
-    TasksRoutingModule,
-    TranslateModule
+    HomeRoutingModule,
+    TranslateModule,
   ],
-  exports: [TasksComponent],
+  exports: [HomeComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class TasksModule { }
+export class HomeModule { }

@@ -17,6 +17,7 @@ import { InboxModule } from './pages/inbox/inbox.module';
 import { LoginModule } from './pages/login/login.module';
 import { ProjectsModule } from './pages/projects/projects.module';
 import { TasksModule } from './pages/tasks/tasks.module';
+import { HomeModule } from './pages/home/home.module';
 
 @NgModule({
   declarations: [
@@ -35,13 +36,14 @@ import { TasksModule } from './pages/tasks/tasks.module';
     }),
     AppRoutingModule,
     CoreModule,
-    SharedModule,
-    AdminPanelModule,
-    DashboardModule,
-    InboxModule,
-    LoginModule,
-    ProjectsModule,
-    TasksModule
+    SharedModule
+    // HomeModule,
+    // AdminPanelModule,
+    // DashboardModule,
+    // InboxModule,
+    // LoginModule,
+    // ProjectsModule,
+    // TasksModule
   ],
   providers: [
     SocketService,

@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Message } from 'src/app/core/models/chat-bot/message';
 import { User } from 'src/app/core/models/user';
-import { DataService } from '../../services/data.service';
 import { SocketService } from '../../services/socket.service';
 import { UserService } from '../../services/user.service';
 
@@ -24,8 +23,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   
   private recievedReplySubscription: Subscription = new Subscription();
 
-  constructor(private _dataService: DataService,
-              private _socketService: SocketService,
+  constructor(private _socketService: SocketService,
               private _userService: UserService) { }
               
   ngOnInit(): void {

@@ -3,6 +3,15 @@
     "LK_CHATBOT_TOOLTIP": "Open ChatBot",
     "LK_CHATBOT_HEADER_TITLE": "Need help? Ask me!",
     "LK_CHATBOT_NAME": "ScrumTracker ChatBot",
+    "LK_HEADER_HOME": "Home",
+    "LK_HEADER_PROJECTS": "Projects",
+    "LK_HEADER_TASKS": "Tasks",
+    "LK_HEADER_NOTIFICATIONS": "Notifications",
+    "LK_HEADER_INBOX": "Inbox",
     "LK_HEADER_LOGIN": "Login",
-    "LK_HEADER_DASHBOARD": "Dashboard"
+    "LK_HEADER_DASHBOARD": "Dashboard",
+    "LK_HOME_CARD_DASHBOARD": "Dashboard",
+    "LK_HOME_CARD_PROJECTS": "Projects",
+    "LK_HOME_CARD_TASKS": "Tasks",
+    "LK_HOME_CARD_INBOX": "Inbox"
 }

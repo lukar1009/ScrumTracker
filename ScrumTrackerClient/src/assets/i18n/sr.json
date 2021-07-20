@@ -3,6 +3,15 @@
     "LK_CHATBOT_TOOLTIP": "Otvori ChatBot-a",
     "LK_CHATBOT_HEADER_TITLE": "Potrebna pomoć! Pitaj mene!",
     "LK_CHATBOT_NAME": "ScrumTracker ChatBot",
+    "LK_HEADER_HOME": "Početna",
+    "LK_HEADER_PROJECTS": "Projekti",
+    "LK_HEADER_TASKS": "Zadaci",
+    "LK_HEADER_NOTIFICATIONS": "Notifikacije",
+    "LK_HEADER_INBOX": "Pošta",
     "LK_HEADER_LOGIN": "Prijavi se",
-    "LK_HEADER_DASHBOARD": "Početna"
+    "LK_HEADER_DASHBOARD": "Tabla",
+    "LK_HOME_CARD_DASHBOARD": "Tabla",
+    "LK_HOME_CARD_PROJECTS": "Projekti",
+    "LK_HOME_CARD_TASKS": "Zadaci",
+    "LK_HOME_CARD_INBOX": "Pošta"
 }

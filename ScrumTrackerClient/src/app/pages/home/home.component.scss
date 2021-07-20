@@ -1,0 +1,30 @@
+.home-card-wrapper {
+    width: 80%;
+    height: 220px;
+    border: 2px solid #ebebeb;
+    border-radius: 20px;
+}
+
+.home-card-wrapper:hover {
+    cursor: pointer;
+    background-color: lightblue;
+}
+
+.wrapper {
+    height: 80%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.icon-wrap {
+    height: 110px;
+    i {
+        height: 100%;
+    }
+}
+
+.dx-icon-email, .dx-icon-fields, .dx-icon-product, .dx-icon-selectall {
+    font: 60px/1 DXIcons;
+}

@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private translate: TranslateService,
               private _dataService: DataService) {
     translate.setDefaultLang('en');
+    translate.use('en');
   }
 
   ngOnInit(): void {
