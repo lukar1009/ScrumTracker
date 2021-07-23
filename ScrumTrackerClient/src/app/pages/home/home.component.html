@@ -1,5 +1,5 @@
 <div class="wrapper row justify-content-center align-items-center">
-    <div class="col-3 text-center d-flex justify-content-center align-items-center">
+    <a [routerLink]="['/dashboard']" class="col-4 text-center d-flex justify-content-center align-items-center">
         <div class="home-card-wrapper row justify-content-center align-items-center">
             <div class="col-12 icon-wrap d-flex justify-content-center align-items-center">
                 <i class="dx-icon-fields d-flex justify-content-center align-items-center"></i>
@@ -8,8 +8,8 @@
                 <h2>{{'LK_HOME_CARD_DASHBOARD' | translate}}</h2>
             </div>
         </div>
-    </div>
-    <div class="col-3 text-center d-flex justify-content-center align-items-center">
+    </a>
+    <a [routerLink]="['/projects']" class="col-4 text-center d-flex justify-content-center align-items-center">
         <div class="home-card-wrapper row justify-content-center align-items-center">
             <div class="col-12 icon-wrap d-flex justify-content-center align-items-center">
                 <i class="dx-icon-product d-flex justify-content-center align-items-center"></i>
@@ -18,8 +18,8 @@
                 <h2>{{'LK_HOME_CARD_PROJECTS' | translate}}</h2>
             </div>
         </div>
-    </div>
-    <div class="col-3 text-center d-flex justify-content-center align-items-center">
+    </a>
+    <a [routerLink]="['/tasks']" class="col-4 text-center d-flex justify-content-center align-items-center">
         <div class="home-card-wrapper row justify-content-center align-items-center">
             <div class="col-12 icon-wrap d-flex justify-content-center align-items-center">
                 <i class="dx-icon-selectall d-flex justify-content-center align-items-center"></i>
@@ -28,8 +28,8 @@
                 <h2>{{'LK_HOME_CARD_TASKS' | translate}}</h2>
             </div>
         </div>
-    </div>
-    <div class="col-3 text-center d-flex justify-content-center align-items-center">
+    </a>
+    <a [routerLink]="['/inbox']" class="col-4 text-center d-flex justify-content-center align-items-center">
         <div class="home-card-wrapper row justify-content-center align-items-center">
             <div class="col-12 icon-wrap d-flex justify-content-center align-items-center">
                 <i class="dx-icon-email d-flex justify-content-center align-items-center"></i>
@@ -38,5 +38,15 @@
                 <h2>{{'LK_HOME_CARD_INBOX' | translate}}</h2>
             </div>
         </div>
-    </div>
+    </a>
+    <a [routerLink]="['/notifications']" class="col-4 text-center d-flex justify-content-center align-items-center">
+        <div class="home-card-wrapper row justify-content-center align-items-center">
+            <div class="col-12 icon-wrap d-flex justify-content-center align-items-center">
+                <i class="dx-icon-globe d-flex justify-content-center align-items-center"></i>
+            </div>
+            <div class="col-12 text-center">
+                <h2>{{'LK_HOME_CARD_NOTIFICATIONS' | translate}}</h2>
+            </div>
+        </div>
+    </a>
 </div>

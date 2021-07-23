@@ -13,5 +13,6 @@
     "LK_HOME_CARD_DASHBOARD": "Dashboard",
     "LK_HOME_CARD_PROJECTS": "Projects",
     "LK_HOME_CARD_TASKS": "Tasks",
-    "LK_HOME_CARD_INBOX": "Inbox"
+    "LK_HOME_CARD_INBOX": "Inbox",
+    "LK_HOME_CARD_NOTIFICATIONS": "Notifications"
 }
