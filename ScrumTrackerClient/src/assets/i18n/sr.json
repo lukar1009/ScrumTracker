@@ -14,5 +14,9 @@
     "LK_HOME_CARD_PROJECTS": "Projekti",
     "LK_HOME_CARD_TASKS": "Zadaci",
     "LK_HOME_CARD_INBOX": "Pošta",
-    "LK_HOME_CARD_NOTIFICATIONS": "Notifikacije"
+    "LK_HOME_CARD_NOTIFICATIONS": "Notifikacije",
+    "LK_CONVERSATIONS_TITLE": "Konverzacije",
+    "LK_PLUS_TOOLTIP": "Započni konverzaciju",
+    "LK_REFRESH_TOOLTIP": "Osveži konverzacije",
+    "LK_FILTER_USERS": "Filtriraj po imenu..."
 }

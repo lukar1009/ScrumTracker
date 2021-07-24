@@ -14,5 +14,9 @@
     "LK_HOME_CARD_PROJECTS": "Projects",
     "LK_HOME_CARD_TASKS": "Tasks",
     "LK_HOME_CARD_INBOX": "Inbox",
-    "LK_HOME_CARD_NOTIFICATIONS": "Notifications"
+    "LK_HOME_CARD_NOTIFICATIONS": "Notifications",
+    "LK_CONVERSATIONS_TITLE": "Conversations",
+    "LK_PLUS_TOOLTIP": "Start a conversation",
+    "LK_REFRESH_TOOLTIP": "Refresh conversations",
+    "LK_FILTER_USERS": "Type a name..."
 }

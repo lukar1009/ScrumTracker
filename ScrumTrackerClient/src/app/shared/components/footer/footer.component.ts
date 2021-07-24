@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { Message } from 'src/app/core/models/chat-bot/message';
 import { User } from 'src/app/core/models/user';
 import { SocketService } from '../../services/socket.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-footer',
@@ -23,11 +22,9 @@ export class FooterComponent implements OnInit, OnDestroy {
   
   private recievedReplySubscription: Subscription = new Subscription();
 
-  constructor(private _socketService: SocketService,
-              private _userService: UserService) { }
+  constructor(private _socketService: SocketService) { }
               
   ngOnInit(): void {
-    this.getAllUsers();
     this.recievedReplySubscription = this._socketService.receivedReply().subscribe(data => {
       this.messageArray.push({ name:'Bot', message: data.outputMessage, botMessage: true });
     });
@@ -52,11 +49,4 @@ export class FooterComponent implements OnInit, OnDestroy {
       this.messageArray.push({ name: 'You', message: this.message, botMessage: false });
       this.message = '';
   }
-
-  getAllUsers() {
-      this._userService.getAllUsers().then(response => {
-          console.log(response);
-      });
-  }
-
 }

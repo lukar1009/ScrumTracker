@@ -9,7 +9,8 @@ export class MessagesRoutes extends CommonRoutesConfig {
     }
     
     configureRoutes(): express.Application {
-        this.app.route('/messages/getAllConversations')
+        this.app.param(`initiatingUserId`, MessagesMiddleware.extractInitiatingUserIdParam);
+        this.app.route('/messages/getAllConversations/:initiatingUserId')
             .get(messagesController.getAllConversationsForUser)
         
         this.app.param(`userId`, MessagesMiddleware.extractUserIdParam);

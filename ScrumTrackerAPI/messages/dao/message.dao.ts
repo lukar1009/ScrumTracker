@@ -32,7 +32,7 @@ class MessageDao {
 
     async changeMessageStatus(messageId: number, status: string) {
         const conn = await connect();
-        await conn.execute(`update message set IsReadMessage = ${status} where ID = ${messageId}`);
+        await conn.execute(`update message set IsReadMessage = ${status} where InitiatingUserId = ${messageId}`);
         return `Message updated!`;
     }
 

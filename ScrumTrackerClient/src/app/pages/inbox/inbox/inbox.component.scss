@@ -1,0 +1,26 @@
+
+:host ::ng-deep .close-button {
+    border:none !important;
+    background-color: #f8f9fa;
+}
+
+.side-bar {
+    background-color: #f8f9fa;
+    width: 300px;
+    height: 100%;
+}
+
+.full-height {
+    height: calc(100% - 96px);
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.modal-users-div {
+    padding: 5px;
+    width: 100%;
+    word-wrap: break-word;
+    margin-top: 5px;
+    border: 1px solid #ebebeb;
+}

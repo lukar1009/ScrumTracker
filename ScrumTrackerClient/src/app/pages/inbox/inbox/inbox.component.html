@@ -1,1 +1,70 @@
-<p>inbox works!</p>
+<dx-drawer [openedStateMode]="'shrink'"
+            [position]="'left'"
+            [revealMode]="'slide'"
+            template="template"
+            opened="true"
+            [closeOnOutsideClick]="false"
+            class="full-height">
+    <div *dxTemplate="let data of 'template'" class="side-bar">
+        <div class="row justify-content-between pt-3">
+            <div class="col-8 d-flex align-items-center">
+                <h5>{{'LK_CONVERSATIONS_TITLE' | translate}}</h5>
+            </div>
+            <div class="col-4 p-0 d-flex justify-content-end">
+                <dx-button id="plus" icon="plus" class="close-button"
+                    (mouseenter)="plusTooltipToggle()"
+                    (mouseleave)="plusTooltipToggle()"
+                    (click)="openOrClosePlusModal()"></dx-button>
+                <dx-tooltip target="#plus"
+                            [(visible)]="plusTooltipVisible"
+                            [closeOnOutsideClick]="false">
+                    <div *dxTemplate="let data = data of 'content'">
+                        {{'LK_PLUS_TOOLTIP' | translate}}    
+                    </div>
+                </dx-tooltip>
+                <dx-popover target="#plus"
+                            position="bottom"
+                            [width]="200"
+                            [height]="250"
+                            [(visible)]="plusModalOpened"
+                            [closeOnOutsideClick]="true">
+                        <div *dxTemplate="let data = model of 'content'">
+                            <dx-text-box icon="search" placeholder="{{'LK_FILTER_USERS' | translate}}"
+                            [(value)]="filterValue"
+                            valueChangeEvent="keyup"  
+                            (onValueChanged)="filterUsersList($event)"></dx-text-box>
+                            <dx-scroll-view [scrollByContent]="true"
+                                            [scrollByThumb]="true"
+                                            [showScrollbar]="'always'">
+                                <div *ngFor="let user of usersArrayFiltered">
+                                    <div class="modal-users-div">
+                                        {{user.name}}
+                                    </div>
+                                </div>
+                            </dx-scroll-view>
+                        </div>
+                </dx-popover>
+                <dx-button id="refresh" icon="refresh" class="close-button"
+                    (mouseenter)="refreshTooltipToggle()"
+                    (mouseleave)="refreshTooltipToggle()"></dx-button>
+                <dx-tooltip target="#refresh"
+                            [(visible)]="refreshTooltipVisible"
+                            [closeOnOutsideClick]="false">
+                    <div *dxTemplate="let data = data of 'content'">
+                        {{'LK_REFRESH_TOOLTIP' | translate}}    
+                    </div>
+                </dx-tooltip>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+        <dx-list class="panel-list"
+            [dataSource]="conversations"
+            [hoverStateEnabled]="false"
+            [activeStateEnabled]="false"
+            [focusStateEnabled]="false">
+        </dx-list>
+    </div>
+    <div id="content" class="dx-theme-background-color"></div>
+</dx-drawer>
