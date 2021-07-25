@@ -37,7 +37,7 @@
                                             [scrollByThumb]="true"
                                             [showScrollbar]="'always'">
                                 <div *ngFor="let user of usersArrayFiltered">
-                                    <div class="modal-users-div">
+                                    <div (click)="onUserClick(user.id)" class="modal-users-div">
                                         {{user.name}}
                                     </div>
                                 </div>
@@ -60,11 +60,21 @@
 
         </div>
         <dx-list class="panel-list"
-            [dataSource]="conversations"
-            [hoverStateEnabled]="false"
-            [activeStateEnabled]="false"
-            [focusStateEnabled]="false">
+            [dataSource]="conversationsArray"
+            keyExpr="id"
+            displayExpr="name"
+            (onItemClick)="onUserClickFromList($event)">
+            <div *dxTemplate="let item of 'item'">
+                <div class="row">
+                    <div class="col-8 d-flex align-items-center {{item.hasNewMessages ? 'text-bold' : ''}}">{{item.contactUser.name}}</div>
+                    <div class="col-4 d-flex justify-content-end">
+                        <dx-button class="close-button" icon="{{item.hasNewMessages ? 'inactivefolder' : 'activefolder'}}" (onClick)="changeConversationStatus(item)"></dx-button>
+                    </div>
+                </div>
+            </div>
         </dx-list>
     </div>
-    <div id="content" class="dx-theme-background-color"></div>
+    <div id="content" class="dx-theme-background-color">
+        <app-conversation></app-conversation>
+    </div>
 </dx-drawer>

@@ -9,6 +9,9 @@ import { DxPopoverModule } from 'devextreme-angular/ui/popover';
 import { DxTextBoxModule } from 'devextreme-angular/ui/text-box';
 import { DxScrollViewModule } from 'devextreme-angular/ui/scroll-view';
 import { RouterModule } from '@angular/router';
+import { DataService } from './services/data.service';
+import { InboxService } from './services/inbox.service';
+import { UserService } from './services/user.service';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -30,6 +33,9 @@ import { RouterModule } from '@angular/router';
     FooterComponent
   ],
   providers: [
+    DataService,
+    InboxService,
+    UserService,
     TranslatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

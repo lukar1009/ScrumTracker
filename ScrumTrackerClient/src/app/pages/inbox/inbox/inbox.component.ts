@@ -1,7 +1,10 @@
+import { Message } from 'src/app/core/models/inbox/message'; 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Conversation } from 'src/app/core/models/inbox/conversation';
 import { User } from 'src/app/core/models/user';
 import { DataService } from 'src/app/shared/services/data.service';
+import { InboxService } from 'src/app/shared/services/inbox.service';
 
 @Component({
   selector: 'app-inbox',
@@ -18,27 +21,16 @@ export class InboxComponent implements OnInit, OnDestroy {
   public plusTooltipVisible: boolean = false;
   public refreshTooltipVisible: boolean = false;
 
-  conversations: any[] = [
-    {
-      id: 1,
-      name: 'Test'
-    },
-    {
-      id: 2,
-      name: 'Test2'
-    },
-    {
-      id: 3,
-      name: 'Test3'
-    }
-  ];
+  public conversationsArray: Conversation[] = [];
 
   private usersSubscription: Subscription = new Subscription();
 
-  constructor(private _dataService: DataService) { }
+  constructor(private _dataService: DataService,
+              private _inboxService: InboxService) { }
   
   ngOnInit(): void {
     this.subscribeToUsersArray();
+    this.getAllConversations();
   }
   
   ngOnDestroy(): void {
@@ -50,6 +42,58 @@ export class InboxComponent implements OnInit, OnDestroy {
       this.usersArray = this.usersArrayFiltered = users;
       
     });
+  }
+
+  //TODO: Nakon osposobljavanja sistema logovanja, ubaciti dinamicko povlacenje userId-a od logovanog korsinika
+  getAllConversations() {
+    this._inboxService.getAllConversations(1).toPromise().then(data => {
+      console.log(data);
+      this.mapConversationsResponse(data);
+    });
+  }
+
+  mapConversationsResponse(data: any) {
+    let messagesArray = data.map((x: any) => this.mapMessageEntity(x));
+    for(let i = 0; i < messagesArray.length; i++) {
+      if(!this.checkIfUserIsAlreadyAddedToArray(messagesArray[i].toUserId)) {
+        let conversation = new Conversation();
+        conversation.contactUser = this.usersArray.find(x => x.id == messagesArray[i].toUserId);
+        conversation.initiatingUserId = messagesArray[i].initiatingUserId;
+        conversation.hasNewMessages = this.checkIfConversationHasNewMessages(messagesArray.filter((x: any) => x.toUserId == conversation.contactUser?.id));
+        this.conversationsArray.push(conversation);
+      }
+    }
+    console.log(this.conversationsArray);
+  }
+
+  checkIfUserIsAlreadyAddedToArray(userId: number) {
+    for(let i = 0; i < this.conversationsArray.length; i++) {
+      if(this.conversationsArray[i].contactUser?.id == userId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  checkIfConversationHasNewMessages(messagesArray: any): boolean {
+      for(let i = 0; i < messagesArray.length; i++) {
+        if(messagesArray[i].isReadMessage == 'N')
+          return true;
+      }
+      return false;
+  }
+
+  mapMessageEntity(data: any) {
+    let message = new Message();
+    message.id = data['id'];
+    message.title = data['title'];
+    message.content = data['content'];
+    message.fromUserId = data['fromUserId'];
+    message.toUserId = data['toUserId'];
+    message.isDeletedMessage = data['isDeletedMessage'];
+    message.isReadMessage = data['isReadMessage'];
+    message.initiatingUserId = data['initiatingUserId'];
+    return message;
   }
 
   plusTooltipToggle() {
@@ -71,6 +115,25 @@ export class InboxComponent implements OnInit, OnDestroy {
     } else {
       this.usersArrayFiltered = this.usersArray;
     }
+  }
+
+  onUserClick(userId: number) {
+    let user = this.usersArray.find(x => x.id == userId);
+    if(user != undefined) {
+      this._dataService.changeSelectedUserForConversation(user);
+    }
+  }
+
+  onUserClickFromList(e: any) {
+    let user = this.usersArray.find(x => x.id == e.itemData.contactUser.id);
+    if(user != undefined) {
+      this._dataService.changeSelectedUserForConversation(user);
+    }
+  }
+
+  changeConversationStatus(item: Conversation) {
+    console.log(item);
+    item.hasNewMessages = !item.hasNewMessages;
   }
 
 }

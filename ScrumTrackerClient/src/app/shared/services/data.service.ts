@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/core/models/user';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DataService {
 
   private selectedLanguageSubject: BehaviorSubject<string> = new BehaviorSubject<string>('en');
@@ -12,6 +10,9 @@ export class DataService {
 
   private usersArraySubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   public usersArray = this.usersArraySubject.asObservable();
+
+  private selectedUserForConversationSubject: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  public selectedUserForConversation = this.selectedUserForConversationSubject.asObservable();
 
   constructor() { }
 
@@ -21,6 +22,10 @@ export class DataService {
 
   public changeUsersArray(users: User[]) {
     this.usersArraySubject.next(users);
+  }
+
+  public changeSelectedUserForConversation(user: User) {
+    this.selectedUserForConversationSubject.next(user);
   }
 
 }
