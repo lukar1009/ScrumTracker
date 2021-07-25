@@ -16,8 +16,8 @@ class MessagesController {
     }
 
     async sendMessage(req: express.Request, res: express.Response) {
-        const message = await messagesService.sendMessage(req.body as MessageDto);
-        res.status(200).send(message);
+        const data = await messagesService.sendMessage(req.body as MessageDto);
+        res.status(200).send(data);
     }
 
     async changeMessageStatus(req: express.Request, res: express.Response) {

@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 import { DataService } from './services/data.service';
 import { InboxService } from './services/inbox.service';
 import { UserService } from './services/user.service';
+import { LocalStorageService } from './services/local-storage.service';
+import { LoginService } from './services/login.service';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -36,6 +38,8 @@ import { UserService } from './services/user.service';
     DataService,
     InboxService,
     UserService,
+    LocalStorageService,
+    LoginService,
     TranslatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

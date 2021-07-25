@@ -5,6 +5,7 @@ import { Conversation } from 'src/app/core/models/inbox/conversation';
 import { User } from 'src/app/core/models/user';
 import { DataService } from 'src/app/shared/services/data.service';
 import { InboxService } from 'src/app/shared/services/inbox.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
   selector: 'app-inbox',
@@ -12,6 +13,8 @@ import { InboxService } from 'src/app/shared/services/inbox.service';
   styleUrls: ['./inbox.component.scss']
 })
 export class InboxComponent implements OnInit, OnDestroy {
+
+  public loggedUserId: number;
 
   public usersArray: User[] = [];
   public usersArrayFiltered: User[] = [];
@@ -26,11 +29,12 @@ export class InboxComponent implements OnInit, OnDestroy {
   private usersSubscription: Subscription = new Subscription();
 
   constructor(private _dataService: DataService,
-              private _inboxService: InboxService) { }
+              private _inboxService: InboxService,
+              private _localStorageService: LocalStorageService) { }
   
   ngOnInit(): void {
     this.subscribeToUsersArray();
-    this.getAllConversations();
+    this.getLoggedUserId();
   }
   
   ngOnDestroy(): void {
@@ -44,9 +48,16 @@ export class InboxComponent implements OnInit, OnDestroy {
     });
   }
 
-  //TODO: Nakon osposobljavanja sistema logovanja, ubaciti dinamicko povlacenje userId-a od logovanog korsinika
+  getLoggedUserId() {
+    let id = this._localStorageService.getItem("id");
+    if(id) {
+      this.loggedUserId = +id;
+      this.getAllConversations();
+    }
+  }
+
   getAllConversations() {
-    this._inboxService.getAllConversations(1).toPromise().then(data => {
+    this._inboxService.getAllConversations(this.loggedUserId).toPromise().then(data => {
       console.log(data);
       this.mapConversationsResponse(data);
     });

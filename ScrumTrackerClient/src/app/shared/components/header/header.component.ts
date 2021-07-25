@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from '../../services/data.service';
 
@@ -10,7 +11,8 @@ import { DataService } from '../../services/data.service';
 export class HeaderComponent implements OnInit {
 
   constructor(private translate: TranslateService,
-              private _dataService: DataService) {
+              private _dataService: DataService,
+              public _router: Router) {
     translate.addLangs(['en', 'sr']);
     translate.setDefaultLang('en');
     translate.use('en');
@@ -25,7 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goToLoginPage() {
-    
+    this._router.navigate(['/login']);
   }
 
 }

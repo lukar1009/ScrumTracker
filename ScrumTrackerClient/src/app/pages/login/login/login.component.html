@@ -1,1 +1,14 @@
-<p>login works!</p>
+<div class="row">
+    <div class="col-12">
+        <dx-text-box placeholder="Insert user email" [(value)]="userEmail">
+        </dx-text-box>
+    </div>
+    <div class="col-12">
+        <dx-text-box placeholder="Insert user password" type="password" [(value)]="userPassword">
+        </dx-text-box>
+    </div>
+    <div class="col-12">
+        <dx-button icon="check" (onClick)="login()" text="LOGIN!">
+        </dx-button>
+    </div>
+</div>

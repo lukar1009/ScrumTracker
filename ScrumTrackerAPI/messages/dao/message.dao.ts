@@ -20,12 +20,9 @@ class MessageDao {
         const conn = await connect();
         await conn.execute(`insert into message set Title = '${message.title}', Content = '${message.content}', FromUserId = ${message.fromUserId}, ToUserId = ${message.toUserId}, IsReadMessage = '${message.isReadMessage}', IsDeletedMessage = '${message.isDeletedMessage}', InitiatingUserId = ${message.initiatingUserId}`);
         const resID = conn.query(`select ID from message order by ID desc limit 1`).then(data => {
-            console.log("resId: ", resID);
             let res = this.mapMessagesResponse(data[0]);
-            console.log("res: ", res);
             let id = res[0].id != undefined ? res[0].id : 0;
             message.id = id;
-            console.log("message: ", message);
             return message;
         });
     }
