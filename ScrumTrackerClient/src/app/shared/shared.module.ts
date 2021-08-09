@@ -14,6 +14,8 @@ import { InboxService } from './services/inbox.service';
 import { UserService } from './services/user.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { LoginService } from './services/login.service';
+import { ProjectsService } from './services/projects.service';
+import { TasksService } from './services/tasks.service';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -40,6 +42,8 @@ import { LoginService } from './services/login.service';
     UserService,
     LocalStorageService,
     LoginService,
+    ProjectsService,
+    TasksService,
     TranslatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

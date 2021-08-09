@@ -27,6 +27,15 @@ class TaskDao {
         return res;
     }
 
+    async listTasksByUser(userId: number) {
+        const conn = await connect();
+        const result = await conn.query('select * ' + 
+                                        'from task t inner join task_status ts on t.TaskStatusId = ts.ID ' + 
+                                        'inner join user_x_role_x_task urt on t.ID = urt.ID ' +
+                                        `where urt.UserId = ${userId}`);
+        return result[0];
+    }
+
     async getAllTaskStatuses() {
         const conn = await connect();
         const result = await conn.query('select * from task_status');

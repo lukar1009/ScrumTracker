@@ -62,12 +62,12 @@
         <dx-list class="panel-list"
             [dataSource]="conversationsArray"
             keyExpr="id"
-            displayExpr="name"
-            (onItemClick)="onUserClickFromList($event)">
+            displayExpr="name">
             <div *dxTemplate="let item of 'item'">
                 <div class="row">
                     <div class="col-8 d-flex align-items-center {{item.hasNewMessages ? 'text-bold' : ''}}">{{item.contactUser.name}}</div>
                     <div class="col-4 d-flex justify-content-end">
+                        <dx-button class="close-button" icon="arrowright" (onClick)="onUserClickFromList(item)"></dx-button>
                         <dx-button class="close-button" icon="{{item.hasNewMessages ? 'inactivefolder' : 'activefolder'}}" (onClick)="changeConversationStatus(item)"></dx-button>
                     </div>
                 </div>

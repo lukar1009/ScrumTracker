@@ -13,6 +13,11 @@ class TasksController {
         const tasks = await tasksService.list(100, 0);
         res.status(200).send(tasks);
     }
+
+    async listTasksByUser(req: express.Request, res: express.Response) {
+        const tasks = await tasksService.listByUser(+req.params.userId);
+        res.status(200).send(tasks);
+    }
     
     async listTaskStatuses(req: express.Request, res: express.Response) {
         const statuses = await tasksService.listTaskStatuses();

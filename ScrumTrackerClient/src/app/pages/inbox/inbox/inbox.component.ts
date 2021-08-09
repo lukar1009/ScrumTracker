@@ -136,15 +136,26 @@ export class InboxComponent implements OnInit, OnDestroy {
   }
 
   onUserClickFromList(e: any) {
-    let user = this.usersArray.find(x => x.id == e.itemData.contactUser.id);
+    let user = this.usersArray.find(x => x.id == e.contactUser.id);
     if(user != undefined) {
       this._dataService.changeSelectedUserForConversation(user);
+      this.changeStatus(this.loggedUserId!, user!.id!, 'Y');
+      let selectedUser = this.conversationsArray.find(x => x.contactUser?.id == user?.id);
+      if(selectedUser != undefined) {
+        selectedUser.hasNewMessages = false;
+      }
     }
   }
 
   changeConversationStatus(item: Conversation) {
-    console.log(item);
     item.hasNewMessages = !item.hasNewMessages;
+    this.changeStatus(item.initiatingUserId!, item.contactUser!.id!, !item.hasNewMessages ? 'Y' : 'N');
+  }
+
+  changeStatus(initiatingUserId: number, contactUserId: number, isReadMessage: string) {
+    this._inboxService.changeMessageStatus(initiatingUserId, contactUserId, isReadMessage).toPromise().then(response => {
+      console.log(response);
+    });    
   }
 
 }

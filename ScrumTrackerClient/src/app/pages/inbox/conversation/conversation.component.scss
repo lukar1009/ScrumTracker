@@ -1,0 +1,28 @@
+.logged-user-message {
+    background-color: rgb(255, 152, 133);
+    color: white;
+    border-radius: 5px;
+    margin-top: 4px;
+    min-width: 150px;
+    min-height: 25px;
+}
+
+.other-user-message {
+    background-color: rgb(66, 127, 240);
+    color: white;
+    border-radius: 5px;
+    margin-top: 4px;
+    min-width: 150px;
+    min-height: 25px;
+}
+
+.conversation-footer {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 5px !important;
+    background: #f8f9fa;
+}
+
+.conversation-body {
+    height: 75vh;
+}

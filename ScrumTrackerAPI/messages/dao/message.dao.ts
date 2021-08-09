@@ -12,11 +12,11 @@ class MessageDao {
 
     async getAllMessagesForConversation(userId: number, otherUserId: number) {
         const conn = await connect();
-        const result = await conn.query(`select * from message where FromUserId in (${userId}, ${otherUserId}) and ToUserId in (${userId}, ${otherUserId}) and InitiatingUserId = ${userId}`);
+        const result = await conn.query(`select * from message where FromUserId in (${userId}, ${otherUserId}) and ToUserId in (${userId}, ${otherUserId})`);
         return this.mapMessagesResponse(result[0]);
     }
 
-    async sendMessage(message: MessageDto) {
+    async sendMessage(message: any) {
         const conn = await connect();
         await conn.execute(`insert into message set Title = '${message.title}', Content = '${message.content}', FromUserId = ${message.fromUserId}, ToUserId = ${message.toUserId}, IsReadMessage = '${message.isReadMessage}', IsDeletedMessage = '${message.isDeletedMessage}', InitiatingUserId = ${message.initiatingUserId}`);
         const resID = conn.query(`select ID from message order by ID desc limit 1`).then(data => {
@@ -27,9 +27,9 @@ class MessageDao {
         });
     }
 
-    async changeMessageStatus(messageId: number, status: string) {
+    async changeMessageStatus(messageId: number, otherUserId: number, status: string) {
         const conn = await connect();
-        await conn.execute(`update message set IsReadMessage = ${status} where InitiatingUserId = ${messageId}`);
+        await conn.execute(`update message set IsReadMessage = '${status}' where InitiatingUserId = ${messageId} and ToUserId = ${otherUserId}`);
         return `Message updated!`;
     }
 

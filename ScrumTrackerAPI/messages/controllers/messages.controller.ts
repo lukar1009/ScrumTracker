@@ -21,7 +21,7 @@ class MessagesController {
     }
 
     async changeMessageStatus(req: express.Request, res: express.Response) {
-        const result = await messagesService.changeMessageStatus(+req.params.messageId, req.params.status);
+        const result = await messagesService.changeMessageStatus(+req.params.messageId, +req.params.otherUserId, req.params.status);
         return res.status(200).send(result);
     }
 

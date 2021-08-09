@@ -22,8 +22,9 @@ export class MessagesRoutes extends CommonRoutesConfig {
             .post(messagesController.sendMessage);
         
         this.app.param(`messageId`, MessagesMiddleware.extractMessageIdParam);
-        this.app.param(`status`, MessagesMiddleware.extractStatusParam);    
-        this.app.route('/messages/changeMessageStatus/:messageId/:status')
+        this.app.param(`otherUserId`, MessagesMiddleware.extractOtherUserIdParam);
+        this.app.param(`status`, MessagesMiddleware.extractStatusParam);
+        this.app.route('/messages/changeMessageStatus/:messageId/:otherUserId/:status')
             .put(messagesController.changeMessageStatus)
 
         this.app.param(`initiatingUserId`, MessagesMiddleware.extractInitiatingUserIdParam);

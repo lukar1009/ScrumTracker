@@ -16,6 +16,10 @@ export class TasksRoutes extends CommonRoutesConfig {
                 .post(tasksMiddleware.validateRequiredTaskBodyFields,
                       tasksController.createTask)
         
+        this.app.param("userId", tasksMiddleware.extractUserIdParam);
+        this.app.route('/tasks/:userId')
+                .get(tasksController.listTasksByUser)
+
         this.app.route('/tasks/statuses')
                 .get(tasksController.listTaskStatuses);
     

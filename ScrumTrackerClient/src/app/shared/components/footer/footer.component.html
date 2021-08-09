@@ -33,7 +33,7 @@
                                         [scrollByThumb]="true"
                                         [showScrollbar]="'always'">
                             <div class="row" *ngFor="let item of messageArray">
-                                <div class="col-7 {{item.botMessage ? 'offset-5 text-end bot-message' : 'client-message'}}">
+                                <div class="col-7 {{item.botMessage ? 'text-end bot-message' : 'offset-5 client-message'}}">
                                     <span>{{item.name}}: </span> {{item.message}}
                                 </div>
                             </div>

@@ -7,6 +7,10 @@ class TasksService implements CRUD {
         return TaskDao.listTasks(limit, page);
     }
 
+    async listByUser(userId: number) {
+        return TaskDao.listTasksByUser(userId);
+    }
+
     async create(resource: any) {
         return TaskDao.addTask(resource);
     }

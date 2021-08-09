@@ -11,12 +11,12 @@ class MessagesService {
         return MessageDao.getAllMessagesForConversation(userId, otherUserId);
     }
 
-    async sendMessage(message: MessageDto) {
+    async sendMessage(message: any) {
         return MessageDao.sendMessage(message);
     }
 
-    async changeMessageStatus(messageId: number, status: string) {
-        return MessageDao.changeMessageStatus(messageId, status);
+    async changeMessageStatus(messageId: number, otherUserId: number, status: string) {
+        return MessageDao.changeMessageStatus(messageId, otherUserId, status);
     }
 
     async deleteConversation(initiatingUserId: number, otherUserId: number) {

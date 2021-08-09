@@ -3,3 +3,25 @@
         <h3>{{displayUsersName()}}</h3>
     </div>
 </div>
+<div class="messages-wrapper" *ngIf="messagesArray != null && messagesArray != undefined && messagesArray.length > 0 && loggedUserId != null && loggedUserId != undefined">
+    <div class="conversation-body">
+        <dx-scroll-view [scrollByContent]="true"
+                        [scrollByThumb]="true"
+                        [showScrollbar]="'always'">
+            <div class="row" *ngFor="let message of messagesArray">
+                <div class="col-7 d-flex {{message.fromUserId == loggedUserId ? 'offset-5 justify-content-end' : ''}}" >
+                    <div class="d-flex align-items-center p-2 {{message.fromUserId == loggedUserId ? 'logged-user-message' : 'other-user-message'}}">
+                        {{message.content}}
+                    </div>
+                </div>
+            </div>
+        </dx-scroll-view>
+    </div>
+    <div class="row justify-content-center">
+        <div class="conversation-footer">
+            <dx-text-box [(value)]="messageText" placeholder="Say something..." [showClearButton]="true"
+                        (onEnterKey)="sendMessage()">
+            </dx-text-box>
+        </div>   
+    </div>
+</div>

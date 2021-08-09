@@ -8,6 +8,11 @@ class TasksMiddleware {
             res.status(400).send({error: `Missing required fields for new task.`});
         }
     }
+
+    async extractUserIdParam(req: express.Request, res: express.Response, next: express.NextFunction) {
+        req.body.userId = req.params.userId;
+        next();
+    }
 }
 
 export default new TasksMiddleware();
